@@ -1,6 +1,10 @@
 # Overpass API for Italy - Docker
 
-A local Overpass API instance containing OpenStreetMap data for Italy.
+This repository provides a local Overpass API container for the
+[`nicolgit/proximity`](https://github.com/nicolgit/proximity) project. The
+container supplies the Overpass API instance required by Proximity's generator
+to query OpenStreetMap data and generate proximity results. It runs locally
+using Docker Compose and loads the Geofabrik OpenStreetMap extract for Italy.
 
 The setup uses:
 
@@ -15,15 +19,6 @@ The setup uses:
 > `/api/interpreter`.
 
 ---
-
-## Project structure
-
-```text
-overpass-api/
-├── docker-compose.yaml
-├── README.md
-└── overpass-db/
-```
 
 The container creates and uses `overpass-db` to store the persistent database.
 
