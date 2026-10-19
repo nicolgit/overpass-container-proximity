@@ -18,7 +18,10 @@ services:
       OVERPASS_PLANET_URL: "https://download.geofabrik.de/europe/italy-latest.osm.pbf"
 
       # Conversione PBF -> OSM compresso prima dell'import
-      OVERPASS_PLANET_PREPROCESS: "osmium cat -f osm.bz2"
+      OVERPASS_PLANET_PREPROCESS: >-
+        mv /db/planet.osm.bz2 /db/planet.osm.pbf &&
+        osmium cat /db/planet.osm.pbf -o /db/planet.osm.bz2 &&
+        rm /db/planet.osm.pbf
 
       # Aggiornamenti incrementali Geofabrik
       OVERPASS_DIFF_URL: "https://download.geofabrik.de/europe/italy-updates/"
