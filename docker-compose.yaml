@@ -1,0 +1,37 @@
+services:
+  overpass:
+    image: wiktorn/overpass-api:latest
+    container_name: overpass
+    restart: unless-stopped
+
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./overpass-db:/db
+
+    environment:
+      # Build iniziale
+      OVERPASS_MODE: init
+
+      # Snapshot Italia
+      OVERPASS_PLANET_URL: "https://download.geofabrik.de/europe/italy-latest.osm.pbf"
+
+      # Conversione PBF -> OSM compresso prima dell'import
+      OVERPASS_PLANET_PREPROCESS: "osmium cat -f osm.bz2"
+
+      # Aggiornamenti incrementali Geofabrik
+      OVERPASS_DIFF_URL: "https://download.geofabrik.de/europe/italy-updates/"
+
+      # Database Overpass
+      OVERPASS_META: "no"
+      OVERPASS_COMPRESSION: "lz4"
+
+      # Aggiornamenti
+      OVERPASS_UPDATE_SLEEP: "3600"
+
+      # Generazione areas
+      OVERPASS_RULES_LOAD: "10"
+
+      # Mantiene il servizio attivo dopo l'import
+      OVERPASS_STOP_AFTER_INIT: "false"
